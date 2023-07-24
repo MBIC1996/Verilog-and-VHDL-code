@@ -1,0 +1,114 @@
+-Simple program to configure the DE-10_LITE to display the 
+-- hexadecimal value of the input switches on the 7 segment displays 0 and 1
+
+library ieee;
+use ieee.STD_LOGIC_1164.all;
+use ieee.NUMERIC_STD.all;
+
+entity C4M1P1 is 
+port (
+    SW: in STD_LOGIC_VECTOR(7 downto 0);
+    HEX0: out STD_LOGIC_VECTOR (7 downto 0);
+    HEX1: out STD_LOGIC_VECTOR (7 downto 0);
+    MODE: in STD_LOGIC := '0'); -- Select the range of possible Values. 
+                            -- MODE 0 = 0-9   Mode 1 = 0-F
+end C4M1P1;
+
+architecture Hexify of C4M1P1 is 
+   signal HEX0_temp: STD_LOGIC_VECTOR(7 downto 0);
+    signal HEX1_temp: STD_LOGIC_VECTOR(7 downto 0);
+begin 
+
+    Conversion: process (SW,MODE)
+    begin
+
+    if MODE = '1' then 
+
+        case SW(3 downto 0) is 
+
+                                       --P6543210 
+            when "0000" => HEX0_temp <= "00111111"; -- 0
+            when "0001" => HEX0_temp <= "00000110"; -- 1
+            when "0010" => HEX0_temp <= "01011011"; -- 2
+            when "0011" => HEX0_temp <= "01001111"; -- 3
+            when "0100" => HEX0_temp <= "01100111"; -- 4
+            when "0101" => HEX0_temp <= "01101101"; -- 5
+            when "0110" => HEX0_temp <= "01111101"; -- 6
+            when "0111" => HEX0_temp <= "00000111"; -- 7
+
+            when "1000" => HEX0_temp <= "01111111"; -- 8
+            when "1001" => HEX0_temp <= "01101111"; -- 9
+            when "1010" => HEX0_temp <= "01110111"; -- A
+            when "1011" => HEX0_temp <= "01111100"; -- b    
+            when "1100" => HEX0_temp <= "00111001"; -- C
+            when "1101" => HEX0_temp <= "01111100"; -- D
+            when "1110" => HEX0_temp <= "01111001"; -- E
+            when "1111" => HEX0_temp <= "01110001"; -- F
+            when others => HEX0_temp <= "00000000";
+        end case;
+
+            case SW(7 downto 4) is 
+
+                                       --P6543210 
+            when "0000" => HEX1_temp <= "00111111"; -- 0
+            when "0001" => HEX1_temp <= "00000110"; -- 1
+            when "0010" => HEX1_temp <= "01011011"; -- 2
+            when "0011" => HEX1_temp <= "01001111"; -- 3
+            when "0100" => HEX1_temp <= "01100111"; -- 4
+            when "0101" => HEX1_temp <= "01101101"; -- 5
+            when "0110" => HEX1_temp <= "01111101"; -- 6
+            when "0111" => HEX1_temp <= "00000111"; -- 7
+
+            when "1000" => HEX1_temp <= "01111111"; -- 8
+            when "1001" => HEX1_temp <= "01101111"; -- 9
+            when "1010" => HEX1_temp <= "01110111"; -- A
+            when "1011" => HEX1_temp <= "01111100"; -- b    
+            when "1100" => HEX1_temp <= "00111001"; -- C
+            when "1101" => HEX1_temp <= "01111100"; -- D
+            when "1110" => HEX1_temp <= "01111001"; -- E
+            when "1111" => HEX1_temp <= "01110001"; -- F
+            when others => HEX1_temp <= "00000000";
+        end case;
+
+            else 
+
+        case SW(3 downto 0) is 
+
+                                       --P6543210 
+            when "0000" => HEX0_temp <= "00111111"; -- 0
+            when "0001" => HEX0_temp <= "00000110"; -- 1
+            when "0010" => HEX0_temp <= "01011011"; -- 2
+            when "0011" => HEX0_temp <= "01001111"; -- 3
+            when "0100" => HEX0_temp <= "01100111"; -- 4
+            when "0101" => HEX0_temp <= "01101101"; -- 5
+            when "0110" => HEX0_temp <= "01111101"; -- 6
+            when "0111" => HEX0_temp <= "00000111"; -- 7
+
+            when "1000" => HEX0_temp <= "01111111"; -- 8
+            when "1001" => HEX0_temp <= "01101111"; -- 9
+            when others => HEX0_temp <= "00000000";
+        end case;
+
+            case SW(7 downto 4) is 
+
+                                       --P6543210 
+            when "0000" => HEX1_temp <= "00111111"; -- 0
+            when "0001" => HEX1_temp <= "00000110"; -- 1
+            when "0010" => HEX1_temp <= "01011011"; -- 2
+            when "0011" => HEX1_temp <= "01001111"; -- 3
+            when "0100" => HEX1_temp <= "01100111"; -- 4
+            when "0101" => HEX1_temp <= "01101101"; -- 5
+            when "0110" => HEX1_temp <= "01111101"; -- 6
+            when "0111" => HEX1_temp <= "00000111"; -- 7
+
+            when "1000" => HEX1_temp <= "01111111"; -- 8
+            when "1001" => HEX1_temp <= "01101111"; -- 9
+            when others => HEX1_temp <= "00000000";
+        end case;
+    end if;
+end process;
+
+    HEX0 <= not HEX0_temp;
+    HEX1 <= not HEX1_temp;
+end Hexify;
+

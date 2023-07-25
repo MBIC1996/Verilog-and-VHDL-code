@@ -47,16 +47,7 @@ D1 : entity work.HEX_to_7(conversion)
        sevseg_out => HEX1_temp);
 
 
-HEX0 <= HEX0_temp;
-HEX1 <= HEX1_temp;
+HEX0 <= not HEX0_temp;
+HEX1 <= not HEX1_temp;
 
     end d_to_7;
-
-
-
-
-    
-
-
-
-

@@ -33,7 +33,7 @@ begin
         end case;
     end process;
 
-    sevseg_out <= HEX0_temp;
+    sevseg_out <= not HEX0_temp;
 
 end conversion;
 
